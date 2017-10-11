@@ -54,7 +54,7 @@ main(int argc, char *argv[])
 {
 	struct sigaction act;
 	struct timespec start, current, diff, intspec, wait;
-	size_t i, len;
+	size_t len;
 	int sflag = 0;
 	char status[MAXLEN];
 
@@ -86,18 +86,10 @@ main(int argc, char *argv[])
 		clock_gettime(CLOCK_MONOTONIC, &start);
 
 		status[0] = '\0';
-		for (i = len = 0; i < LEN(args); i++) {
-			if (strstr(args[i].fmt, "VBAR") != NULL) {
-				len += snprintf(status + len, sizeof(status) - len,
-						perctobar(args[i].func(args[i].args), args[i].fmt));
-			} else {
-				len += snprintf(status + len, sizeof(status) - len,
-						args[i].fmt, args[i].func(args[i].args));
-			}
-
-			if (len >= sizeof(status)) {
-				status[sizeof(status) - 1] = '\0';
-			}
+		len = 0;
+		statusstr(&len, status);
+		if (len >= sizeof(status)) {
+			status[sizeof(status) - 1] = '\0';
 		}
 
 		if (sflag) {

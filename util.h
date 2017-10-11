@@ -5,4 +5,4 @@ extern char buf[1024];
 
 const char *bprintf(const char *fmt, ...);
 int pscanf(const char *path, const char *fmt, ...);
-const char *perctobar(const char *perc, const char *fmt);
+const char *perctobar(const char *perc);

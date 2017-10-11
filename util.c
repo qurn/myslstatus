@@ -44,25 +44,12 @@ pscanf(const char *path, const char *fmt, ...)
 }
 
 const char *
-perctobar(const char *perc, const char *fmt)
+perctobar(const char *perc)
 {
-	char temp[sizeof(fmt)-1] = "";
 	const char *bars[] = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" };
-	int i;
-	int j=0;
-	for (i=0; fmt[i]!= '\0'; i++) {
-		if (&fmt[i] == strstr(fmt, "VBAR")) {
-			if (perc == NULL || atoi(perc)>100) {
-				strcat(temp, "X");
-				j=j+1;
-			} else {
-				strcat(temp, (bars[(7 * atoi(perc)) / 100]));
-				j=j+3;
-			}
-		} else if (&fmt[i] < strstr(fmt, "VBAR") || &fmt[i-3] > strstr(fmt, "VBAR")) {
-			temp[j] = fmt[i];
-			j=j+1;
-		}
+	if (perc == NULL || atoi(perc)>100) {
+		return "X";
+	} else {
+		return (bars[(7 * atoi(perc)) / 100]);
 	}
-	return bprintf("%s",temp);
 }
