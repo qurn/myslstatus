@@ -54,12 +54,3 @@ battery_state(const char *bat)
 	}
 	return (i == LEN(map)) ? "?" : map[i].symbol;
 }
-
-const char *
-battery_bar(const char *bat)
-{
-	if (strcmp(battery_state(bat), "-") == 0)
-		return perctobar(battery_perc(bat), "⚡VBAR ");
-	else
-		return bprintf("%s","");
-}
