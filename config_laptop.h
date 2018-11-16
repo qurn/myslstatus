@@ -54,9 +54,9 @@ statusstr(size_t * len, char * status)
 {
 	if (atof(disk_free("/dev/mapper/cryptroot")) < 0.5)
 		*len += snprintf(status + *len, MAXLEN - *len, "Warning sda2 has only %s Gb Diskspace left "   , disk_free("/dev/sda2"));
-//	if (strcmp(battery_state("BAT1"), "-") == 0)
-//		*len += snprintf(status + *len, MAXLEN - *len, "⚡%s "   , perctobar(battery_perc("BAT1")));
-//	*len += snprintf(status + *len, MAXLEN - *len, "@%s "  , perctobar(wifi_perc("wlp2s0")));
+	if (strcmp(battery_state("BAT1"), "-") == 0)
+		*len += snprintf(status + *len, MAXLEN - *len, "⚡%s "   , perctobar(battery_perc("BAT1")));
+	*len += snprintf(status + *len, MAXLEN - *len, "@%s "  , perctobar(wifi_perc("wlp2s0")));
 	*len += snprintf(status + *len, MAXLEN - *len, "C%s "  , perctobar(cpu_perc()));
 	*len += snprintf(status + *len, MAXLEN - *len, "R%s "  , perctobar(ram_perc()));
 	*len += snprintf(status + *len, MAXLEN - *len, "♫%s "  , perctobar(vol_perc("/dev/mixer")));
